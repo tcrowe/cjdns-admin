@@ -1,0 +1,16 @@
+{
+  "name": "cjdns-admin",
+  "version": "0.0.1",
+  "description": "A module for communicating with a CJDNS node over the admin UDP interface.",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "bencode": "^0.6.0",
+    "eventemitter4": "^0.2.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-jshint": "^1.8.4",
+    "gulp-mocha": "^1.0.0"
+  }
+}
