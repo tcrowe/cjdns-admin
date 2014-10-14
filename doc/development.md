@@ -13,6 +13,14 @@ Install the npm packages locally:
 npm install
 ```
 
+Add some environment variables
+```
+export CJDNS_ADMIN_IP=127.0.0.1
+export CJDNS_ADMIN_PORT=11234
+export CJDNS_ADMIN_PASSWORD=get your password from your config file
+```
+Only the password variable is required for testing.
+
 Run gulp:
 ```
 gulp
