@@ -1,4 +1,3 @@
-
 var assert = require('assert'),
 	fixtures = require('./fixtures'),
 	Admin = require('../lib/admin'),
@@ -22,11 +21,11 @@ if (!process.env.CJDNS_ADMIN_PASSWORD) {
 // set this environment variable to make it work
 password = process.env.CJDNS_ADMIN_PASSWORD;
 
-function requestResponse (name, member, options, logResponse) {
-	describe('#' + name, function () {
-		it('should get a response',function (done) {
+function requestResponse(name, member, options, logResponse) {
+	describe('#' + name, function() {
+		it('should get a response', function(done) {
 			var channel = member(options);
-			admin.on(channel, function (res) {
+			admin.on(channel, function(res) {
 				if (logResponse) {
 					console.log(res);
 				}
@@ -41,34 +40,34 @@ function requestResponse (name, member, options, logResponse) {
 	});
 }
 
-function assertObject (obj) {
-	return function () {
+function assertObject(obj) {
+	return function() {
 		assert.equal(typeof obj, 'object');
 	};
 }
 
-describe('Admin', function () {
-	describe('constructor, password only', function () {
+describe('Admin', function() {
+	describe('constructor, password only', function() {
 		admin = Admin({
 			password: password
 		});
 		it('should return an object', assertObject(admin));
 	});
-	describe('constructor, ip and password', function () {
+	describe('constructor, ip and password', function() {
 		admin = Admin({
 			ip: ip,
 			password: password
 		});
 		it('should return an object', assertObject(admin));
 	});
-	describe('constructor, port and password', function () {
+	describe('constructor, port and password', function() {
 		admin = Admin({
 			port: port,
 			password: password
 		});
 		it('should return an object', assertObject(admin));
 	});
-	describe('constructor, full', function () {
+	describe('constructor, full', function() {
 		admin = Admin({
 			ip: ip,
 			port: port,
@@ -105,68 +104,83 @@ describe('Admin', function () {
 	// 
 	requestResponse('Admin_availableFunctions',
 		admin.Admin_availableFunctions);
+
 	requestResponse('availableFunctions',
 		admin.availableFunctions);
 
 	requestResponse('Admin_availableFunctions, with arguments',
-		admin.Admin_availableFunctions,
-		{ page: 0 });
+		admin.Admin_availableFunctions, {
+			page: 0
+		});
+
 	requestResponse('availableFunctions, with arguments',
-		admin.availableFunctions,
-		{ page: 0 });
+		admin.availableFunctions, {
+			page: 0
+		});
 
 	//
 	// Allocator_bytesAllocated
 	// 
-	requestResponse('Allocator_bytesAllocated',
-		admin.Allocator_bytesAllocated);
-	requestResponse('allocator.bytesAllocated',
-		admin.allocator.bytesAllocated);
+	requestResponse('Allocator_bytesAllocated', admin.Allocator_bytesAllocated);
+
+	requestResponse('allocator.bytesAllocated', admin.allocator.bytesAllocated);
 
 	//
 	// Allocator_snapshot
 	// 
-	requestResponse('Allocator_snapshot',
-		admin.Allocator_snapshot);
-	requestResponse('allocator.snapshot',
-		admin.allocator.snapshot);
+	requestResponse('Allocator_snapshot', admin.Allocator_snapshot);
+
+	requestResponse('allocator.snapshot', admin.allocator.snapshot);
 
 	requestResponse('Allocator_snapshot, with arguments',
-		admin.Allocator_snapshot, { includeAllocations: 1 });
+		admin.Allocator_snapshot, {
+			includeAllocations: 1
+		});
+
 	requestResponse('allocator.snapshot, with arguments',
-		admin.allocator.snapshot, { includeAllocations: 1 });
+		admin.allocator.snapshot, {
+			includeAllocations: 1
+		});
 
 	//
 	// AuthorizedPasswords_add
 	//
-	var testUser1 = 'testuser' + Math.random().toString().substring(2, 8),
-		testUser2 = 'testuser' + Math.random().toString().substring(2, 8);
-	requestResponse('AuthorizedPasswords_add',
-		admin.AuthorizedPasswords_add,
-		{ user: testUser1, password: testUser1 });
+	/*var testUser1 = 'testuser' + Math.random().toString().substring(2, 8),
+		testUser2 = 'testuser' + Math.random().toString().substring(2, 8);*/
+
+	/*requestResponse('AuthorizedPasswords_add',
+		admin.AuthorizedPasswords_add, {
+			user: testUser1,
+			password: testUser1
+		});*/
+
 	// TODO figure out why this one crashes cjdroute
 	/*requestResponse('authorizedPasswords.add',
-		admin.authorizedPasswords.add,
-		{ user: testUser2, password: testUser2 });*/
-	
+		admin.authorizedPasswords.add, {
+			user: testUser2,
+			password: testUser2
+		});*/
+
 	//
 	// AuthorizedPasswords_list
 	//
-	requestResponse('AuthorizedPasswords_list',
-		admin.AuthorizedPasswords_list);
-	requestResponse('authorizedPasswords.list',
-		admin.authorizedPasswords.list);
+	requestResponse('AuthorizedPasswords_list', admin.AuthorizedPasswords_list);
+
+	requestResponse('authorizedPasswords.list', admin.authorizedPasswords.list);
 
 	//
 	// AuthorizedPasswords_remove
 	//
-	requestResponse('AuthorizedPasswords_remove',
-		admin.AuthorizedPasswords_remove,
-		{ user: testUser1 });
+	/*requestResponse('AuthorizedPasswords_remove',
+		admin.AuthorizedPasswords_remove, {
+			user: testUser1
+		});*/
+
 	// TODO figure out why this one crashes cjdroute
 	/*requestResponse('authorizedPasswords.remove',
-		admin.authorizedPasswords.remove,
-		{ user: testUser2 });*/
+		admin.authorizedPasswords.remove, {
+			user: testUser2
+		});*/
 
 	//
 	// InterfaceController_disconnectPeer
@@ -181,21 +195,26 @@ describe('Admin', function () {
 	//
 	requestResponse('InterfaceController_peerStats',
 		admin.InterfaceController_peerStats);
+
 	requestResponse('InterfaceController_peerStats, with arguments',
-		admin.InterfaceController_peerStats,
-		{ page: 0 });
+		admin.InterfaceController_peerStats, {
+			page: 0
+		});
+
 	requestResponse('interfaceController.peerStats',
 		admin.interfaceController.peerStats);
+
 	requestResponse('interfaceController.peerStats',
-		admin.interfaceController.peerStats,
-		{ page: 0 });
+		admin.interfaceController.peerStats, {
+			page: 0
+		});
 
 	//
 	// NodeStore_dumpTable
 	//
-	requestResponse('NodeStore_dumpTable',
-		admin.NodeStore_dumpTable,
-		{ page: 0 });
+	requestResponse('NodeStore_dumpTable', admin.NodeStore_dumpTable, {
+		page: 0
+	});
 
 	//
 	// NodeStore_getLink
@@ -206,7 +225,7 @@ describe('Admin', function () {
 	requestResponse('NodeStore_getLink, with arguments',
 		admin.NodeStore_dumpTable,
 		{ linkNum: 0, parent: '???' });*/
-	
+
 
 	//
 	// NodeStore_getRouteLabel
@@ -223,8 +242,6 @@ describe('Admin', function () {
 	/*requestResponse('NodeStore_nodeForAddr',
 		admin.NodeStore_nodeForAddr,
 		{ ip: '???' });*/
-
-	
 
 	//
 	// subscriber types
@@ -250,6 +267,5 @@ describe('Admin', function () {
 			});
 		});
 	});*/
-
 
 });

@@ -25,3 +25,8 @@ Run gulp:
 ```
 gulp
 ```
+
+## JavaScript Code Style
+Using [idiomatic.js](https://github.com/rwaldron/idiomatic.js) we have a guide for how to write our JS. The goal is to write robust code which follows a consistent style.
+
+JSHint will point out any instances where the code is confusing, buggy, or doesn't follow the style.

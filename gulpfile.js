@@ -18,8 +18,10 @@ config = {
 
 // run tests with mocha
 // cmd: gulp test
-gulp.task('test', function () {
-	return gulp.src(config.tests, { read: false })
+gulp.task('test', function() {
+	return gulp.src(config.tests, {
+			read: false
+		})
 		.pipe(mocha({
 			bail: true,
 			timeout: 3000
@@ -28,14 +30,14 @@ gulp.task('test', function () {
 
 // check js code quality
 // cmd: gulp jshint
-gulp.task('jshint', function () {
+gulp.task('jshint', function() {
 	return gulp.src(config.js)
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
 
 // watch for changes
-gulp.task('watch', function () {
+gulp.task('watch', function() {
 	gulp.watch(config.js, ['jshint', 'test']);
 });
 

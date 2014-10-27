@@ -1,4 +1,3 @@
-
 // it's messy, just for generating docs
 
 var fs = require('fs'),
@@ -67,9 +66,9 @@ function documentationOutput(fob) {
 	console.log('<a name="' + func + '"></a>');
 	console.log('###', func + ', ' + mapFunc[func]);
 	if (args2.length > 0) {
-		Object.keys(args).forEach(function (key) {
+		Object.keys(args).forEach(function(key) {
 			var arg = args[key],
-				required = (arg.required === 1) ? 'required': 'optional',
+				required = (arg.required === 1) ? 'required' : 'optional',
 				typename = arg.type.toLowerCase();
 			if (typename === 'int') {
 				// typename = 'number';
@@ -84,9 +83,9 @@ function documentationOutput(fob) {
 		console.log('var channel,\n\toptions;');
 		console.log();
 		console.log('options = {');
-		Object.keys(args).forEach(function (key, index, arr) {
+		Object.keys(args).forEach(function(key, index, arr) {
 			var arg = args[key],
-				required = (arg.required === 1) ? 'required': 'optional',
+				required = (arg.required === 1) ? 'required' : 'optional',
 				typename = arg.type.toLowerCase(),
 				data,
 				comma = '';
@@ -112,7 +111,7 @@ function documentationOutput(fob) {
 	console.log();
 }
 
-function sortFuncs (a, b) {
+function sortFuncs(a, b) {
 	var f1 = a.func.toLowerCase(),
 		f2 = b.func.toLowerCase();
 	if (f1 > f2) {
@@ -132,10 +131,10 @@ function padded(str, max, character) {
 	return op;
 }
 
-function table () {
+function table() {
 	var orig,
 		alt;
-	Object.keys(mapFunc).forEach(function (key) {
+	Object.keys(mapFunc).forEach(function(key) {
 		var f1 = '[' + key + '](#' + key + ')',
 			f2 = '[' + mapFunc[key] + '](#' + key + ')';
 		col1.push(f1);
@@ -153,7 +152,7 @@ function table () {
 	orig = padded('', originalMax, '-');
 	alt = padded('', alternateMax, '-');
 	console.log('|-' + orig + '-|-' + alt + '-|');
-	col1.forEach(function (item, index, arr) {
+	col1.forEach(function(item, index, arr) {
 		var f1 = padded(item, originalMax),
 			f2 = padded(col2[index], alternateMax);
 		console.log('| ' + f1 + ' | ' + f2 + ' |');
