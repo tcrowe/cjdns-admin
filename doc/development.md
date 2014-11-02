@@ -30,3 +30,7 @@ gulp
 Using [idiomatic.js](https://github.com/rwaldron/idiomatic.js) we have a guide for how to write our JS. The goal is to write robust code which follows a consistent style.
 
 JSHint will point out any instances where the code is confusing, buggy, or doesn't follow the style.
+
+## Tests
+There is a checklist for the [Tests](tests.md). If you write any tests please update that document. A check can be added for full implementation of an admin function. For partial implementations please write a note under the item instead of a check.
+
