@@ -6,10 +6,10 @@
   "main": "index.js",
   "dependencies": {
     "bencode": "^0.6.0",
-    "eventemitter4": "^0.2.3"
+    "eventemitter4": "^0.2.3",
   },
   "devDependencies": {
-    "gulp": "^3.8.7",
+    "gulp": "^3.8.9",
     "gulp-jshint": "^1.8.4",
     "gulp-mocha": "^1.0.0"
   }

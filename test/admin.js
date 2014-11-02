@@ -21,6 +21,13 @@ if (!process.env.CJDNS_ADMIN_PASSWORD) {
 // set this environment variable to make it work
 password = process.env.CJDNS_ADMIN_PASSWORD;
 
+/**
+ * Test a standard request-response admin function.
+ * @param  {string} name        The admin function name for display purposes.
+ * @param  {function} member      The admin function.
+ * @param  {object} options     The `args` associated with the function.
+ * @param  {boolean} logResponse Log the response to the console for debugging.
+ */
 function requestResponse(name, member, options, logResponse) {
 	describe('#' + name, function() {
 		it('should get a response', function(done) {
@@ -53,6 +60,7 @@ describe('Admin', function() {
 		});
 		it('should return an object', assertObject(admin));
 	});
+	
 	describe('constructor, ip and password', function() {
 		admin = Admin({
 			ip: ip,
@@ -60,6 +68,7 @@ describe('Admin', function() {
 		});
 		it('should return an object', assertObject(admin));
 	});
+
 	describe('constructor, port and password', function() {
 		admin = Admin({
 			port: port,
@@ -67,6 +76,7 @@ describe('Admin', function() {
 		});
 		it('should return an object', assertObject(admin));
 	});
+
 	describe('constructor, full', function() {
 		admin = Admin({
 			ip: ip,
@@ -75,6 +85,29 @@ describe('Admin', function() {
 			autoClean: true
 		});
 		it('should return an object', assertObject(admin));
+	});
+
+	describe('check for presence of all members', function () {
+		it('should contain each member in `fixtures.allMembers`', function (done) {
+			fixtures.allMembers.forEach(function(func) {
+				var member = admin;
+				// some members are objects with admin functions on them
+				if (func.indexOf('.') > -1) {
+					// this member is an object
+					func = func.split('.');
+					// crawl the name until we get the function
+					func.forEach(function (memberPart) {
+						member = member[memberPart];
+					});
+				} else {
+					member = member[func];
+				}
+				// test for member existence
+				console.log(func, typeof member);
+				assert.equal(typeof member, 'function');
+			});
+			done();
+		});
 	});
 
 	//
