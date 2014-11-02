@@ -1,12 +1,13 @@
 
 # cjdns-admin
 ---
-A nodejs module for working with the CJDNS admin interface over UDP. It's made to be consistent, robust, tested, and easy to use.
+A nodejs module for working with the CJDNS admin interface over UDP. It's made to be consistent, robust and easy to use.
 
 The API exposes each admin function with the exact name or alternate. All the functions accept a single `object` as their argument and return a channel `string`. The channel is used to get the response(s) that the admin function returns. It's an asynchronous request/response pattern.
 
 ## Development
 ---
+The module is partially tested as of Nov. 2, 2014. I need help adding test cases for all functions.
 See [doc/development.md](doc/development.md)
 
 ## Admin
