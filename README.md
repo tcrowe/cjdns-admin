@@ -10,6 +10,12 @@ The API exposes each admin function with the exact name or alternate. All the fu
 The module is partially tested as of Nov. 2, 2014. I need help adding test cases for all functions.
 See [doc/development.md](doc/development.md)
 
+## Install
+---
+```
+npm install cjdns-admin
+```
+
 ## Admin
 ---
 The `Admin` function returns an [EventEmitter4](https://github.com/eriksank/eventemitter4) with members for each admin function and their alternate. It also contains members which handle automatic paging for functions which are paged.

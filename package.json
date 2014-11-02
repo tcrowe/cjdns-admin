@@ -1,12 +1,25 @@
 {
   "name": "cjdns-admin",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A module for communicating with a CJDNS node over the admin UDP interface.",
-  "private": true,
+  "keywords": [
+    "cjdns",
+    "udp",
+    "ipv6",
+    "mesh network",
+    "meshnet"
+  ],
+  "bugs": {
+    "url": "https://github.com/tcrowe/cjdns-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcrowe/cjdns-admin.git"
+  },
   "main": "index.js",
   "dependencies": {
     "bencode": "^0.6.0",
-    "eventemitter4": "^0.2.3",
+    "eventemitter4": "^0.2.3"
   },
   "devDependencies": {
     "gulp": "^3.8.9",
