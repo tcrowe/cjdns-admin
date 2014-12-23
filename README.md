@@ -141,7 +141,7 @@ options = {
 };
 
 channel = admin.log.subscribe(options);
-admin.once(channel, processResponse);
+admin.any(channel, processResponse);
 ```
 
 <a name="AdminLog_unsubscribe"></a>

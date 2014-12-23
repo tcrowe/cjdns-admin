@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 config = {
 	js: [
 		'lib/**/*.js',
-		'test/*.js'
+		'test/**/*.js'
 	],
 	tests: [
 		'test/utilities.js',

@@ -8,9 +8,9 @@
 + [ ] AdminLog_unsubscribe, log.unsubscribe
 + [x] Allocator_bytesAllocated, allocator.bytesAllocated
 + [x] Allocator_snapshot, allocator.snapshot
-+ [ ] AuthorizedPasswords_add, authorizedPasswords.add
++ [x] AuthorizedPasswords_add, authorizedPasswords.add
 + [x] AuthorizedPasswords_list, authorizedPasswords.list
-+ [ ] AuthorizedPasswords_remove, authorizedPasswords.remove
++ [x] AuthorizedPasswords_remove, authorizedPasswords.remove
 + [ ] Core_exit, core.exit
 + [ ] Core_initTunnel, core.initTunnel
 + [ ] InterfaceController_disconnectPeer, interfaceController.disconnectPeer

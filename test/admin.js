@@ -23,15 +23,36 @@ password = process.env.CJDNS_ADMIN_PASSWORD;
 
 /**
  * Test a standard request-response admin function.
- * @param  {string} name        The admin function name for display purposes.
- * @param  {function} member      The admin function.
- * @param  {object} options     The `args` associated with the function.
- * @param  {boolean} logResponse Log the response to the console for debugging.
+ * @param  {string} options.name        The admin function name for display purposes.
+ * @param  {function} options.member      The admin function.
+ * @param  {object} options.options     The `args` associated with the function.
+ * @param  {boolean} options.logResponse Log the response to the console for debugging.
  */
-function requestResponse(name, member, options, logResponse) {
+function requestResponse(options) {
+	var name,
+		member,
+		memberOptions,
+		logResponse;
+	name = options.name;
+	member = options.member;
+	if (options.options) {
+		memberOptions = options.options;
+	}
+	if (options.logResponse) {
+		logResponse = options.logResponse;
+	}
+	if (options.skip) {
+		console.log('skipping test', name);
+		return;
+	}
 	describe('#' + name, function() {
 		it('should get a response', function(done) {
-			var channel = member(options);
+			var channel;
+			if (memberOptions) {
+				channel = member(memberOptions);
+			} else {
+				channel = member();
+			}
 			admin.on(channel, function(res) {
 				if (logResponse) {
 					console.log(res);
@@ -103,202 +124,73 @@ describe('Admin', function() {
 					member = member[func];
 				}
 				// test for member existence
-				console.log(func, typeof member);
+				// console.log(func, typeof member);
 				assert.equal(typeof member, 'function');
 			});
 			done();
 		});
 	});
-
-	//
-	// cookie
-	//
-	requestResponse('cookie', admin.cookie);
-
-	//
-	// ping
-	//
-	requestResponse('ping', admin.ping);
-
-	//
-	// memory, calls Allocator_bytesAllocated
-	// memory call is depricated
-	//
-	requestResponse('memory', admin.memory);
-
+	
 	//
 	// Admin_asyncEnabled
 	// 
-	requestResponse('Admin_asyncEnabled', admin.Admin_asyncEnabled);
-	requestResponse('asyncEnabled', admin.asyncEnabled);
+	requestResponse({
+		name: 'Admin_asyncEnabled',
+		member: admin.Admin_asyncEnabled
+	});
+	requestResponse({
+		name: 'asyncEnabled',
+		member: admin.asyncEnabled
+	});
 
 	//
 	// Admin_availableFunctions
 	// 
-	requestResponse('Admin_availableFunctions',
-		admin.Admin_availableFunctions);
+	requestResponse({
+		name: 'Admin_availableFunctions',
+		member: admin.Admin_availableFunctions
+	});
 
-	requestResponse('availableFunctions',
-		admin.availableFunctions);
+	requestResponse({
+		name: 'availableFunctions',
+		member: admin.availableFunctions
+	});
 
-	requestResponse('Admin_availableFunctions, with arguments',
-		admin.Admin_availableFunctions, {
+	requestResponse({
+		name: 'Admin_availableFunctions, with arguments',
+		member: admin.Admin_availableFunctions,
+		options: {
 			page: 0
-		});
+		}
+	});
 
-	requestResponse('availableFunctions, with arguments',
-		admin.availableFunctions, {
+	requestResponse({
+		name: 'availableFunctions, with arguments',
+		member: admin.availableFunctions,
+		options: {
 			page: 0
-		});
-
-	//
-	// Allocator_bytesAllocated
-	// 
-	requestResponse('Allocator_bytesAllocated', admin.Allocator_bytesAllocated);
-
-	requestResponse('allocator.bytesAllocated', admin.allocator.bytesAllocated);
-
-	//
-	// Allocator_snapshot
-	// 
-	requestResponse('Allocator_snapshot', admin.Allocator_snapshot);
-
-	requestResponse('allocator.snapshot', admin.allocator.snapshot);
-
-	requestResponse('Allocator_snapshot, with arguments',
-		admin.Allocator_snapshot, {
-			includeAllocations: 1
-		});
-
-	requestResponse('allocator.snapshot, with arguments',
-		admin.allocator.snapshot, {
-			includeAllocations: 1
-		});
-
-	//
-	// AuthorizedPasswords_add
-	//
-	/*var testUser1 = 'testuser' + Math.random().toString().substring(2, 8),
-		testUser2 = 'testuser' + Math.random().toString().substring(2, 8);*/
-
-	/*requestResponse('AuthorizedPasswords_add',
-		admin.AuthorizedPasswords_add, {
-			user: testUser1,
-			password: testUser1
-		});*/
-
-	// TODO figure out why this one crashes cjdroute
-	/*requestResponse('authorizedPasswords.add',
-		admin.authorizedPasswords.add, {
-			user: testUser2,
-			password: testUser2
-		});*/
-
-	//
-	// AuthorizedPasswords_list
-	//
-	requestResponse('AuthorizedPasswords_list', admin.AuthorizedPasswords_list);
-
-	requestResponse('authorizedPasswords.list', admin.authorizedPasswords.list);
-
-	//
-	// AuthorizedPasswords_remove
-	//
-	/*requestResponse('AuthorizedPasswords_remove',
-		admin.AuthorizedPasswords_remove, {
-			user: testUser1
-		});*/
-
-	// TODO figure out why this one crashes cjdroute
-	/*requestResponse('authorizedPasswords.remove',
-		admin.authorizedPasswords.remove, {
-			user: testUser2
-		});*/
-
-	//
-	// InterfaceController_disconnectPeer
-	//
-	// TODO come up with a good test case for this
-	/*requestResponse('InterfaceController_disconnectPeer',
-		admin.InterfaceController_disconnectPeer,
-		{ pubkey: '???' });*/
-
-	//
-	// InterfaceController_peerStats
-	//
-	requestResponse('InterfaceController_peerStats',
-		admin.InterfaceController_peerStats);
-
-	requestResponse('InterfaceController_peerStats, with arguments',
-		admin.InterfaceController_peerStats, {
-			page: 0
-		});
-
-	requestResponse('interfaceController.peerStats',
-		admin.interfaceController.peerStats);
-
-	requestResponse('interfaceController.peerStats',
-		admin.interfaceController.peerStats, {
-			page: 0
-		});
-
-	//
-	// NodeStore_dumpTable
-	//
-	requestResponse('NodeStore_dumpTable', admin.NodeStore_dumpTable, {
-		page: 0
+		}
 	});
 
 	//
-	// NodeStore_getLink
+	// cookie
 	//
-	// TODO figure out how to use this
-	/*requestResponse('NodeStore_getLink',
-		admin.NodeStore_getLink);
-	requestResponse('NodeStore_getLink, with arguments',
-		admin.NodeStore_dumpTable,
-		{ linkNum: 0, parent: '???' });*/
-
+	requestResponse({
+		name: 'cookie',
+		member: admin.cookie
+	});
 
 	//
-	// NodeStore_getRouteLabel
+	// ping
 	//
-	// TODO figure out how to use this
-	/*requestResponse('NodeStore_getRouteLabel',
-		admin.NodeStore_getRouteLabel,
-		{ pathParentToChild: '???', pathToParent: '???' });*/
+	requestResponse({
+		name: 'ping',
+		member: admin.ping
+	});
 
-	//
-	// NodeStore_nodeForAddr
-	//
-	// TODO figure out how to use this
-	/*requestResponse('NodeStore_nodeForAddr',
-		admin.NodeStore_nodeForAddr,
-		{ ip: '???' });*/
-
-	//
-	// subscriber types
-	//
-	/*describe('#AdminLog_subscribe', function () {
-		it('should have several responses', function (done) {
-			var channel = admin.AdminLog_subscribe(),
-				streamId,
-				responseCount = 0;
-			admin.on(channel, function (res) {
-				console.log(res);
-				assert.equal(typeof res, 'object');
-				assert(res.func);
-				assert(res.channel && res.channel === channel);
-				assert(res.data);
-				streamId = res.data.streamId;
-				assert(res.errors && res.errors.length === 0);
-				responseCount += 1;
-				console.log('responseCount', responseCount);
-				if (responseCount >= 3) {
-					done();
-				}
-			});
-		});
-	});*/
+	// test the rest of the admin modules
+	fixtures.moduleList.forEach(function(moduleName) {
+		require('./admin/' + moduleName)(requestResponse, admin);
+	});
 
 });
