@@ -1,18 +1,17 @@
 
 ## Tests
 
-+ [x] cookie
 + [x] Admin_asyncEnabled, asyncEnabled
 + [x] Admin_availableFunctions, availableFunctions
-+ [ ] AdminLog_subscribe, log.subscribe
-+ [ ] AdminLog_unsubscribe, log.unsubscribe
 + [x] Allocator_bytesAllocated, allocator.bytesAllocated
 + [x] Allocator_snapshot, allocator.snapshot
 + [x] AuthorizedPasswords_add, authorizedPasswords.add
 + [x] AuthorizedPasswords_list, authorizedPasswords.list
 + [x] AuthorizedPasswords_remove, authorizedPasswords.remove
-+ [ ] Core_exit, core.exit
++ [x] cookie
++ [x] Core_exit, core.exit
 + [ ] Core_initTunnel, core.initTunnel
++ [x] Core_pid, core.pid
 + [ ] InterfaceController_disconnectPeer, interfaceController.disconnectPeer
 + [x] InterfaceController_peerStats, interfaceController.peerStats
 + [ ] IpTunnel_allowConnection, ipTunnel.allowConnection
@@ -32,6 +31,7 @@
 + [ ] RouterModule_findNode, routerModule.findNode
 + [ ] RouterModule_getPeers, routerModule.getPeers
 + [ ] RouterModule_lookup, routerModule.lookup
++ [ ] RouterModule_nextHop, routerModule.nextHop
 + [ ] RouterModule_pingNode, routerModule.pingNode
 + [ ] SearchRunner_showActiveSearch, searchRunner.showActiveSearch
 + [ ] Security_checkPermissions, security.checkPermissions
