@@ -54,19 +54,18 @@ admin.on(channel, pingResponse);
 ## Function List
 ---
 
-| Original                                  | Alternate                           |
-|-------------------------------------------|-------------------------------------|
+| Original | Alternate |
+|---|---|
 | [Admin_asyncEnabled](#Admin_asyncEnabled) | [asyncEnabled](#Admin_asyncEnabled) |
 | [Admin_availableFunctions](#Admin_availableFunctions) | [availableFunctions](#Admin_availableFunctions) |
-| [AdminLog_subscribe](#AdminLog_subscribe) | [log.subscribe](#AdminLog_subscribe) |
-| [AdminLog_unsubscribe](#AdminLog_unsubscribe) | [log.unsubscribe](#AdminLog_unsubscribe) |
 | [Allocator_bytesAllocated](#Allocator_bytesAllocated) | [allocator.bytesAllocated](#Allocator_bytesAllocated) |
 | [Allocator_snapshot](#Allocator_snapshot) | [allocator.snapshot](#Allocator_snapshot) |
 | [AuthorizedPasswords_add](#AuthorizedPasswords_add) | [authorizedPasswords.add](#AuthorizedPasswords_add) |
 | [AuthorizedPasswords_list](#AuthorizedPasswords_list) | [authorizedPasswords.list](#AuthorizedPasswords_list) |
 | [AuthorizedPasswords_remove](#AuthorizedPasswords_remove) | [authorizedPasswords.remove](#AuthorizedPasswords_remove) |
-| [Core_exit](#Core_exit)                   | [core.exit](#Core_exit)             |
-| [Core_initTunnel](#Core_initTunnel)       | [core.initTunnel](#Core_initTunnel) |
+| [Core_exit](#Core_exit) | [core.exit](#Core_exit) |
+| [Core_initTunnel](#Core_initTunnel) | [core.initTunnel](#Core_initTunnel) |
+| [Core_pid](#Core_pid) | [core.pid](#Core_pid) |
 | [InterfaceController_disconnectPeer](#InterfaceController_disconnectPeer) | [interfaceController.disconnectPeer](#InterfaceController_disconnectPeer) |
 | [InterfaceController_peerStats](#InterfaceController_peerStats) | [interfaceController.peerStats](#InterfaceController_peerStats) |
 | [IpTunnel_allowConnection](#IpTunnel_allowConnection) | [ipTunnel.allowConnection](#IpTunnel_allowConnection) |
@@ -74,28 +73,29 @@ admin.on(channel, pingResponse);
 | [IpTunnel_listConnections](#IpTunnel_listConnections) | [ipTunnel.listConnections](#IpTunnel_listConnections) |
 | [IpTunnel_removeConnection](#IpTunnel_removeConnection) | [ipTunnel.removeConnection](#IpTunnel_removeConnection) |
 | [IpTunnel_showConnection](#IpTunnel_showConnection) | [ipTunnel.showConnection](#IpTunnel_showConnection) |
-| [memory](#memory)                         | [memory](#memory)                   |
+| [memory](#memory) | [memory](#memory) |
 | [NodeStore_dumpTable](#NodeStore_dumpTable) | [nodeStore.dumpTable](#NodeStore_dumpTable) |
-| [NodeStore_getLink](#NodeStore_getLink)   | [nodeStore.getLink](#NodeStore_getLink) |
+| [NodeStore_getLink](#NodeStore_getLink) | [nodeStore.getLink](#NodeStore_getLink) |
 | [NodeStore_getRouteLabel](#NodeStore_getRouteLabel) | [nodeStore.getRouteLabel](#NodeStore_getRouteLabel) |
 | [NodeStore_nodeForAddr](#NodeStore_nodeForAddr) | [nodeStore.nodeForAddr](#NodeStore_nodeForAddr) |
-| [ping](#ping)                             | [ping](#ping)                       |
+| [ping](#ping) | [ping](#ping) |
 | [RainflyClient_addKey](#RainflyClient_addKey) | [rainflyClient.addKey](#RainflyClient_addKey) |
 | [RainflyClient_addServer](#RainflyClient_addServer) | [rainflyClient.addServer](#RainflyClient_addServer) |
 | [RainflyClient_minSignatures](#RainflyClient_minSignatures) | [rainflyClient.minSignatures](#RainflyClient_minSignatures) |
 | [RouterModule_findNode](#RouterModule_findNode) | [routerModule.findNode](#RouterModule_findNode) |
 | [RouterModule_getPeers](#RouterModule_getPeers) | [routerModule.getPeers](#RouterModule_getPeers) |
 | [RouterModule_lookup](#RouterModule_lookup) | [routerModule.lookup](#RouterModule_lookup) |
+| [RouterModule_nextHop](#RouterModule_nextHop) | [routerModule.nextHop](#RouterModule_nextHop) |
 | [RouterModule_pingNode](#RouterModule_pingNode) | [routerModule.pingNode](#RouterModule_pingNode) |
 | [SearchRunner_showActiveSearch](#SearchRunner_showActiveSearch) | [searchRunner.showActiveSearch](#SearchRunner_showActiveSearch) |
 | [Security_checkPermissions](#Security_checkPermissions) | [security.checkPermissions](#Security_checkPermissions) |
 | [Security_dropPermissions](#Security_dropPermissions) | [security.dropPermissions](#Security_dropPermissions) |
-| [Security_setUser](#Security_setUser)     | [security.setUser](#Security_setUser) |
+| [Security_setUser](#Security_setUser) | [security.setUser](#Security_setUser) |
 | [SessionManager_getHandles](#SessionManager_getHandles) | [sessionManager.getHandles](#SessionManager_getHandles) |
 | [SessionManager_sessionStats](#SessionManager_sessionStats) | [sessionManager.sessionStats](#SessionManager_sessionStats) |
-| [SwitchPinger_ping](#SwitchPinger_ping)   | [switchPinger.ping](#SwitchPinger_ping) |
+| [SwitchPinger_ping](#SwitchPinger_ping) | [switchPinger.ping](#SwitchPinger_ping) |
 | [UDPInterface_beginConnection](#UDPInterface_beginConnection) | [udpInterface.beginConnection](#UDPInterface_beginConnection) |
-| [UDPInterface_new](#UDPInterface_new)     | [udpInterface.new](#UDPInterface_new) |
+| [UDPInterface_new](#UDPInterface_new) | [udpInterface.new](#UDPInterface_new) |
 
 <a name="Admin_asyncEnabled"></a>
 ### Admin_asyncEnabled, asyncEnabled
@@ -120,44 +120,6 @@ options = {
 };
 
 channel = admin.availableFunctions(options);
-admin.once(channel, processResponse);
-```
-
-<a name="AdminLog_subscribe"></a>
-### AdminLog_subscribe, log.subscribe
-+ file, string, optional
-+ level, string, optional
-+ line, int, optional
-
-Usage:
-```js
-var channel,
-    options;
-
-options = {
-    file: '',
-    level: '',
-    line: 0
-};
-
-channel = admin.log.subscribe(options);
-admin.any(channel, processResponse);
-```
-
-<a name="AdminLog_unsubscribe"></a>
-### AdminLog_unsubscribe, log.unsubscribe
-+ streamId, string, required
-
-Usage:
-```js
-var channel,
-    options;
-
-options = {
-    streamId: ''
-};
-
-channel = admin.log.unsubscribe(options);
 admin.once(channel, processResponse);
 ```
 
@@ -259,6 +221,16 @@ options = {
 };
 
 channel = admin.core.initTunnel(options);
+admin.once(channel, processResponse);
+```
+
+<a name="Core_pid"></a>
+### Core_pid, core.pid
+
+Usage:
+```js
+var channel;
+channel = admin.core.pid();
 admin.once(channel, processResponse);
 ```
 
@@ -574,6 +546,27 @@ options = {
 };
 
 channel = admin.routerModule.lookup(options);
+admin.once(channel, processResponse);
+```
+
+<a name="RouterModule_nextHop"></a>
+### RouterModule_nextHop, routerModule.nextHop
++ nodeToQuery, string, required
++ target, string, required
++ timeout, int
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    nodeToQuery: '',
+    target: '',
+    timeout: 0
+};
+
+channel = admin.routerModule.nextHop(options);
 admin.once(channel, processResponse);
 ```
 
