@@ -1,6 +1,8 @@
 
 ## Tests
 
+The following displays current test coverage. If you write a test please update the coverage list.
+
 + [x] Admin_asyncEnabled, asyncEnabled
 + [x] Admin_availableFunctions, availableFunctions
 + [x] Allocator_bytesAllocated, allocator.bytesAllocated

@@ -8,7 +8,7 @@ The API exposes each admin function with the exact name or alternate. All the fu
 ## Development
 ---
 The module is partially tested as of Nov. 2, 2014. I need help adding test cases for all functions.
-See [doc/development.md](doc/development.md)
+See [doc/development.md](doc/development.md). Test coverage [here](doc/test.md).
 
 ## Install
 ---
