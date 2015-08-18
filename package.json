@@ -1,6 +1,6 @@
 {
   "name": "cjdns-admin",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A module for communicating with a CJDNS node over the admin UDP interface.",
   "keywords": [
     "cjdns",
@@ -16,14 +16,18 @@
     "type": "git",
     "url": "git://github.com/tcrowe/cjdns-admin.git"
   },
+  "homepage": "https://github.com/tcrowe/cjdns-admin",
   "main": "index.js",
   "dependencies": {
     "bencode": "^0.6.0",
     "eventemitter4": "^0.2.3"
   },
   "devDependencies": {
-    "gulp": "^3.8.10",
-    "gulp-jshint": "^1.9.0",
-    "gulp-mocha": "^1.1.2"
+    "jshint": "^2.8.0",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "lint": "jshint --show-non-errors . || true",
+    "test": "mocha"
   }
 }

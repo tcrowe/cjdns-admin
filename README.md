@@ -7,11 +7,23 @@ The API exposes each admin function with the exact name or alternate. All the fu
 
 ## Development
 ---
-The module is partially tested as of Nov. 2, 2014. I need help adding test cases for all functions.
-See [doc/development.md](doc/development.md). Test coverage [here](doc/tests.md).
+Create environment variables that the tests will look for:
+```
+# cjdns development environment
+export CJDNS_ADMIN_PORT=11234
+export CJDNS_ADMIN_IP=127.0.0.1
+export CJDNS_ADMIN_PASSWORD=from your cjdroute config
+```
+
+Tools are available via npm scripts. See `package.json` in the `scripts` section.
+```
+npm run lint
+npm test
+```
 
 ## Install
 ---
+It's available via [https://www.npmjs.com/package/cjdns-admin](https://www.npmjs.com/package/cjdns-admin)
 ```
 npm install cjdns-admin
 ```
@@ -48,24 +60,24 @@ function pingResponse (res) {
 
 // handle the response
 admin.on(channel, pingResponse);
-
 ```
 
-## Function List
----
-
-| Original | Alternate |
-|---|---|
-| [Admin_asyncEnabled](#Admin_asyncEnabled) | [asyncEnabled](#Admin_asyncEnabled) |
-| [Admin_availableFunctions](#Admin_availableFunctions) | [availableFunctions](#Admin_availableFunctions) |
+| Original                                  | Alternate                                 |
+|-------------------------------------------|-------------------------------------------|
+| [Admin_asyncEnabled](#Admin_asyncEnabled) | [admin.asyncEnabled](#Admin_asyncEnabled) |
+| [Admin_availableFunctions](#Admin_availableFunctions) | [admin.availableFunctions](#Admin_availableFunctions) |
+| [AdminLog_logMany](#AdminLog_logMany)     | [log.logMany](#AdminLog_logMany)          |
+| [AdminLog_subscribe](#AdminLog_subscribe) | [log.subscribe](#AdminLog_subscribe)      |
+| [AdminLog_subscriptions](#AdminLog_subscriptions) | [log.subscriptions](#AdminLog_subscriptions) |
+| [AdminLog_unsubscribe](#AdminLog_unsubscribe) | [log.unsubscribe](#AdminLog_unsubscribe)  |
 | [Allocator_bytesAllocated](#Allocator_bytesAllocated) | [allocator.bytesAllocated](#Allocator_bytesAllocated) |
 | [Allocator_snapshot](#Allocator_snapshot) | [allocator.snapshot](#Allocator_snapshot) |
 | [AuthorizedPasswords_add](#AuthorizedPasswords_add) | [authorizedPasswords.add](#AuthorizedPasswords_add) |
 | [AuthorizedPasswords_list](#AuthorizedPasswords_list) | [authorizedPasswords.list](#AuthorizedPasswords_list) |
 | [AuthorizedPasswords_remove](#AuthorizedPasswords_remove) | [authorizedPasswords.remove](#AuthorizedPasswords_remove) |
-| [Core_exit](#Core_exit) | [core.exit](#Core_exit) |
-| [Core_initTunnel](#Core_initTunnel) | [core.initTunnel](#Core_initTunnel) |
-| [Core_pid](#Core_pid) | [core.pid](#Core_pid) |
+| [Core_exit](#Core_exit)                   | [core.exit](#Core_exit)                   |
+| [Core_initTunnel](#Core_initTunnel)       | [core.initTunnel](#Core_initTunnel)       |
+| [Core_pid](#Core_pid)                     | [core.pid](#Core_pid)                     |
 | [InterfaceController_disconnectPeer](#InterfaceController_disconnectPeer) | [interfaceController.disconnectPeer](#InterfaceController_disconnectPeer) |
 | [InterfaceController_peerStats](#InterfaceController_peerStats) | [interfaceController.peerStats](#InterfaceController_peerStats) |
 | [IpTunnel_allowConnection](#IpTunnel_allowConnection) | [ipTunnel.allowConnection](#IpTunnel_allowConnection) |
@@ -73,32 +85,36 @@ admin.on(channel, pingResponse);
 | [IpTunnel_listConnections](#IpTunnel_listConnections) | [ipTunnel.listConnections](#IpTunnel_listConnections) |
 | [IpTunnel_removeConnection](#IpTunnel_removeConnection) | [ipTunnel.removeConnection](#IpTunnel_removeConnection) |
 | [IpTunnel_showConnection](#IpTunnel_showConnection) | [ipTunnel.showConnection](#IpTunnel_showConnection) |
-| [memory](#memory) | [memory](#memory) |
+| [Janitor_dumpRumorMill](#Janitor_dumpRumorMill) | [janitor.dumpRumorMill](#Janitor_dumpRumorMill) |
+| [memory](#memory)                         | [admin.memory](#memory)                   |
 | [NodeStore_dumpTable](#NodeStore_dumpTable) | [nodeStore.dumpTable](#NodeStore_dumpTable) |
-| [NodeStore_getLink](#NodeStore_getLink) | [nodeStore.getLink](#NodeStore_getLink) |
+| [NodeStore_getLink](#NodeStore_getLink)   | [nodeStore.getLink](#NodeStore_getLink)   |
 | [NodeStore_getRouteLabel](#NodeStore_getRouteLabel) | [nodeStore.getRouteLabel](#NodeStore_getRouteLabel) |
 | [NodeStore_nodeForAddr](#NodeStore_nodeForAddr) | [nodeStore.nodeForAddr](#NodeStore_nodeForAddr) |
-| [ping](#ping) | [ping](#ping) |
-| [RainflyClient_addKey](#RainflyClient_addKey) | [rainflyClient.addKey](#RainflyClient_addKey) |
-| [RainflyClient_addServer](#RainflyClient_addServer) | [rainflyClient.addServer](#RainflyClient_addServer) |
-| [RainflyClient_minSignatures](#RainflyClient_minSignatures) | [rainflyClient.minSignatures](#RainflyClient_minSignatures) |
+| [ping](#ping)                             | [admin.ping](#ping)                       |
 | [RouterModule_findNode](#RouterModule_findNode) | [routerModule.findNode](#RouterModule_findNode) |
 | [RouterModule_getPeers](#RouterModule_getPeers) | [routerModule.getPeers](#RouterModule_getPeers) |
 | [RouterModule_lookup](#RouterModule_lookup) | [routerModule.lookup](#RouterModule_lookup) |
 | [RouterModule_nextHop](#RouterModule_nextHop) | [routerModule.nextHop](#RouterModule_nextHop) |
 | [RouterModule_pingNode](#RouterModule_pingNode) | [routerModule.pingNode](#RouterModule_pingNode) |
 | [SearchRunner_showActiveSearch](#SearchRunner_showActiveSearch) | [searchRunner.showActiveSearch](#SearchRunner_showActiveSearch) |
+| [SearchRunner_search](#SearchRunner_search) | [searchRunner.search](#SearchRunner_search) |
 | [Security_checkPermissions](#Security_checkPermissions) | [security.checkPermissions](#Security_checkPermissions) |
-| [Security_dropPermissions](#Security_dropPermissions) | [security.dropPermissions](#Security_dropPermissions) |
-| [Security_setUser](#Security_setUser) | [security.setUser](#Security_setUser) |
+| [Security_chroot](#Security_chroot)       | [security.chroot](#Security_chroot)       |
+| [Security_getUser](#Security_getUser)     | [security.getUser](#Security_getUser)     |
+| [Security_nofiles](#Security_nofiles)     | [security.nofiles](#Security_nofiles)     |
+| [Security_noforks](#Security_noforks)     | [security.noforks](#Security_noforks)     |
+| [Security_seccomp](#Security_seccomp)     | [security.seccomp](#Security_seccomp)     |
+| [Security_setupComplete](#Security_setupComplete) | [security.setupComplete](#Security_setupComplete) |
+| [Security_setUser](#Security_setUser)     | [security.setUser](#Security_setUser)     |
 | [SessionManager_getHandles](#SessionManager_getHandles) | [sessionManager.getHandles](#SessionManager_getHandles) |
 | [SessionManager_sessionStats](#SessionManager_sessionStats) | [sessionManager.sessionStats](#SessionManager_sessionStats) |
-| [SwitchPinger_ping](#SwitchPinger_ping) | [switchPinger.ping](#SwitchPinger_ping) |
+| [SwitchPinger_ping](#SwitchPinger_ping)   | [switchPinger.ping](#SwitchPinger_ping)   |
 | [UDPInterface_beginConnection](#UDPInterface_beginConnection) | [udpInterface.beginConnection](#UDPInterface_beginConnection) |
-| [UDPInterface_new](#UDPInterface_new) | [udpInterface.new](#UDPInterface_new) |
+| [UDPInterface_new](#UDPInterface_new)     | [udpInterface.new](#UDPInterface_new)     |
 
 <a name="Admin_asyncEnabled"></a>
-### Admin_asyncEnabled, asyncEnabled
+### Admin_asyncEnabled, admin.asyncEnabled
 
 Usage:
 ```js
@@ -107,7 +123,7 @@ admin.once(channel, processResponse);
 ```
 
 <a name="Admin_availableFunctions"></a>
-### Admin_availableFunctions, availableFunctions
+### Admin_availableFunctions, admin.availableFunctions
 + page, int, optional
 
 Usage:
@@ -120,6 +136,70 @@ options = {
 };
 
 channel = admin.availableFunctions(options);
+admin.once(channel, processResponse);
+```
+
+<a name="AdminLog_logMany"></a>
+### AdminLog_logMany, log.logMany
++ count, int, required
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    count: 0
+};
+
+channel = admin.log.logMany(options);
+admin.once(channel, processResponse);
+```
+
+<a name="AdminLog_subscribe"></a>
+### AdminLog_subscribe, log.subscribe
++ file, string, optional
++ level, string, optional
++ line, int, optional
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    file: '',
+    level: '',
+    line: 0
+};
+
+channel = admin.log.subscribe(options);
+admin.once(channel, processResponse);
+```
+
+<a name="AdminLog_subscriptions"></a>
+### AdminLog_subscriptions, log.subscriptions
+
+Usage:
+```js
+channel = admin.log.subscriptions();
+admin.once(channel, processResponse);
+```
+
+<a name="AdminLog_unsubscribe"></a>
+### AdminLog_unsubscribe, log.unsubscribe
++ streamId, string, required
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    streamId: ''
+};
+
+channel = admin.log.unsubscribe(options);
 admin.once(channel, processResponse);
 ```
 
@@ -229,7 +309,6 @@ admin.once(channel, processResponse);
 
 Usage:
 ```js
-var channel;
 channel = admin.core.pid();
 admin.once(channel, processResponse);
 ```
@@ -271,7 +350,9 @@ admin.once(channel, processResponse);
 <a name="IpTunnel_allowConnection"></a>
 ### IpTunnel_allowConnection, ipTunnel.allowConnection
 + ip4Address, string, optional
++ ip4Prefix, int, optional
 + ip6Address, string, optional
++ ip6Prefix, int, optional
 + publicKeyOfAuthorizedNode, string, required
 
 Usage:
@@ -281,7 +362,9 @@ var channel,
 
 options = {
     ip4Address: '',
+    ip4Prefix: 0,
     ip6Address: '',
+    ip6Prefix: 0,
     publicKeyOfAuthorizedNode: ''
 };
 
@@ -349,8 +432,27 @@ channel = admin.ipTunnel.showConnection(options);
 admin.once(channel, processResponse);
 ```
 
+<a name="Janitor_dumpRumorMill"></a>
+### Janitor_dumpRumorMill, janitor.dumpRumorMill
++ mill, string, required
++ page, int, required
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    mill: '',
+    page: 0
+};
+
+channel = admin.janitor.dumpRumorMill(options);
+admin.once(channel, processResponse);
+```
+
 <a name="memory"></a>
-### memory, memory
+### memory, admin.memory
 
 Usage:
 ```js
@@ -378,7 +480,7 @@ admin.once(channel, processResponse);
 <a name="NodeStore_getLink"></a>
 ### NodeStore_getLink, nodeStore.getLink
 + linkNum, int, required
-+ parent, string, required
++ parent, string, optional
 
 Usage:
 ```js
@@ -431,62 +533,11 @@ admin.once(channel, processResponse);
 ```
 
 <a name="ping"></a>
-### ping, ping
+### ping, admin.ping
 
 Usage:
 ```js
 channel = admin.ping();
-admin.once(channel, processResponse);
-```
-
-<a name="RainflyClient_addKey"></a>
-### RainflyClient_addKey, rainflyClient.addKey
-+ ident, string, required
-
-Usage:
-```js
-var channel,
-    options;
-
-options = {
-    ident: ''
-};
-
-channel = admin.rainflyClient.addKey(options);
-admin.once(channel, processResponse);
-```
-
-<a name="RainflyClient_addServer"></a>
-### RainflyClient_addServer, rainflyClient.addServer
-+ addr, string, required
-
-Usage:
-```js
-var channel,
-    options;
-
-options = {
-    addr: ''
-};
-
-channel = admin.rainflyClient.addServer(options);
-admin.once(channel, processResponse);
-```
-
-<a name="RainflyClient_minSignatures"></a>
-### RainflyClient_minSignatures, rainflyClient.minSignatures
-+ count, int, required
-
-Usage:
-```js
-var channel,
-    options;
-
-options = {
-    count: 0
-};
-
-channel = admin.rainflyClient.minSignatures(options);
 admin.once(channel, processResponse);
 ```
 
@@ -553,7 +604,7 @@ admin.once(channel, processResponse);
 ### RouterModule_nextHop, routerModule.nextHop
 + nodeToQuery, string, required
 + target, string, required
-+ timeout, int
++ timeout, int, optional
 
 Usage:
 ```js
@@ -589,6 +640,25 @@ channel = admin.routerModule.pingNode(options);
 admin.once(channel, processResponse);
 ```
 
+<a name="SearchRunner_search"></a>
+### SearchRunner_search, searchRunner.search
++ ipv6, string, required
++ maxRequests, int, optional
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    ipv6: '',
+    maxRequests: 0
+};
+
+channel = admin.searchRunner.search(options);
+admin.once(channel, processResponse);
+```
+
 <a name="SearchRunner_showActiveSearch"></a>
 ### SearchRunner_showActiveSearch, searchRunner.showActiveSearch
 + number, int, required
@@ -615,18 +685,26 @@ channel = admin.security.checkPermissions();
 admin.once(channel, processResponse);
 ```
 
-<a name="Security_dropPermissions"></a>
-### Security_dropPermissions, security.dropPermissions
+<a name="Security_chroot"></a>
+### Security_chroot, security.chroot
++ root, string, required
 
 Usage:
 ```js
-channel = admin.security.dropPermissions();
+var channel,
+    options;
+
+options = {
+    root: ''
+};
+
+channel = admin.security.chroot(options);
 admin.once(channel, processResponse);
 ```
 
-<a name="Security_setUser"></a>
-### Security_setUser, security.setUser
-+ user, string, required
+<a name="Security_getUser"></a>
+### Security_getUser, security.getUser
++ user, string, optional
 
 Usage:
 ```js
@@ -635,6 +713,61 @@ var channel,
 
 options = {
     user: ''
+};
+
+channel = admin.security.getUser(options);
+admin.once(channel, processResponse);
+```
+
+<a name="Security_nofiles"></a>
+### Security_nofiles, security.nofiles
+
+Usage:
+```js
+channel = admin.security.nofiles();
+admin.once(channel, processResponse);
+```
+
+<a name="Security_noforks"></a>
+### Security_noforks, security.noforks
+
+Usage:
+```js
+channel = admin.security.noforks();
+admin.once(channel, processResponse);
+```
+
+<a name="Security_seccomp"></a>
+### Security_seccomp, security.seccomp
+
+Usage:
+```js
+channel = admin.security.seccomp();
+admin.once(channel, processResponse);
+```
+
+<a name="Security_setupComplete"></a>
+### Security_setupComplete, security.setupComplete
+
+Usage:
+```js
+channel = admin.security.setupComplete();
+admin.once(channel, processResponse);
+```
+
+<a name="Security_setUser"></a>
+### Security_setUser, security.setUser
++ keepNetAdmin, int, required
++ uid, int, required
+
+Usage:
+```js
+var channel,
+    options;
+
+options = {
+    keepNetAdmin: 0,
+    uid: 0
 };
 
 channel = admin.security.setUser(options);
@@ -737,4 +870,3 @@ options = {
 channel = admin.udpInterface.new(options);
 admin.once(channel, processResponse);
 ```
-
