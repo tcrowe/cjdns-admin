@@ -1,9 +1,7 @@
 
 # cjdns-admin
 ---
-A nodejs module for working with the CJDNS admin interface over UDP. It's made to be consistent, robust and easy to use.
-
-The API exposes each admin function with the exact name or alternate. All the functions accept a single `object` as their argument and return a channel `string`. The channel is used to get the response(s) that the admin function returns. It's an asynchronous request/response pattern.
+A nodejs module for working with the [CJDNS](https://github.com/cjdelisle/cjdns) admin interface over UDP. It's made to be consistent, robust and easy to use.
 
 ## Development
 ---
@@ -23,7 +21,7 @@ npm test
 
 ## Install
 ---
-It's available via [https://www.npmjs.com/package/cjdns-admin](https://www.npmjs.com/package/cjdns-admin)
+It's available via [npm](https://www.npmjs.com/package/cjdns-admin)
 ```
 npm install cjdns-admin
 ```
@@ -61,6 +59,13 @@ function pingResponse (res) {
 // handle the response
 admin.on(channel, pingResponse);
 ```
+
+---
+
+## CJDNS Admin functions
++ Original: named the same as CJDNS calls them
++ Alternate: consistent with normal JS function nomenclature
++ Underneath they call the same function
 
 | Original                                  | Alternate                                 |
 |-------------------------------------------|-------------------------------------------|
