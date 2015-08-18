@@ -19,8 +19,8 @@
   "homepage": "https://github.com/tcrowe/cjdns-admin",
   "main": "index.js",
   "dependencies": {
-    "bencode": "^0.6.0",
-    "eventemitter4": "^0.2.3"
+    "bencode": "^0.7.0",
+    "eventemitter4": "^0.2.4"
   },
   "devDependencies": {
     "jshint": "^2.8.0",
