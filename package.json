@@ -23,11 +23,17 @@
     "eventemitter4": "^0.2.4"
   },
   "devDependencies": {
-    "jshint": "^2.8.0",
-    "mocha": "^2.2.5"
+    "jslint": "^0.9.3",
+    "marked": "^0.3.5",
+    "mocha": "^2.2.5",
+    "nodemon": "^1.4.1"
   },
   "scripts": {
-    "lint": "jshint --show-non-errors . || true",
-    "test": "mocha"
+    "doc-gen": "marked README.md > readme.html",
+    "doc-watch": "nodemon --watch README.md --exec npm run doc-gen",
+    "lint": "jslint --colors {index.js,lib/*.js,lib/admin/*.js,test/*.js,test-live/*.js} | awk '!/(OK|^$)/' || true",
+    "lint-watch": "nodemon -w lib -w test -w test-live --exec npm run lint",
+    "test": "mocha --bail --check-leaks --full-trace --recursive --timeout 1000 ./test",
+    "test-live": "mocha --bail --check-leaks --full-trace --recursive --timeout 1000 ./test-live"
   }
 }
