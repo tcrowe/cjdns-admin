@@ -3,21 +3,11 @@
 ---
 A nodejs module for working with the [CJDNS](https://github.com/cjdelisle/cjdns) admin interface over UDP. It's made to be consistent, robust and easy to use.
 
-## Development
----
-Create environment variables that the tests will look for:
-```
-# cjdns development environment
-export CJDNS_ADMIN_PORT=11234
-export CJDNS_ADMIN_IP=127.0.0.1
-export CJDNS_ADMIN_PASSWORD=from your cjdroute config
-```
-
-Tools are available via npm scripts. See `package.json` in the `scripts` section.
-```
-npm run lint
-npm test
-```
+Jump:
++ [Create Admin Object](#create-admin-section)
++ [CJDNS Admin Functions](#admin-functions-section)
++ [Paged Functions](#paged-functions-section)
++ [Development](#development-section)
 
 ## Install
 ---
@@ -26,9 +16,14 @@ It's available via [npm](https://www.npmjs.com/package/cjdns-admin)
 npm install cjdns-admin
 ```
 
-## Admin
+<a name="create-admin-section"></a>
+## createAdmin constructor
 ---
-The `Admin` function returns an [EventEmitter4](https://github.com/eriksank/eventemitter4) with members for each admin function and their alternate. It also contains members which handle automatic paging for functions which are paged.
+The `createAdmin` function returns an
+[EventEmitter4](https://github.com/eriksank/eventemitter4) with members for
+each admin function and their alternate. It also contains members which
+handle [automatic paging](#paged-functions-section) for functions which
+are paged.
 
 Options:
 + ip, string, optional
@@ -37,11 +32,12 @@ Options:
 
 Usage:
 ```js
-var admin,
+var cjdnsAdmin = require('cjdns-admin'),
+    admin,
     channel;
 
 // create a new Admin
-admin = require('cjdns-admin').Admin({
+admin = cjdnsAdmin.createAdmin({
     ip: '127.0.0.1',
     port: 11234,
     password: 'my cjdns password'
@@ -62,6 +58,7 @@ admin.on(channel, pingResponse);
 
 ---
 
+<a name="admin-functions-section"></a>
 ## CJDNS Admin functions
 + Original: named the same as CJDNS calls them
 + Alternate: consistent with normal JS function nomenclature
@@ -71,6 +68,7 @@ admin.on(channel, pingResponse);
 |-------------------------------------------|-------------------------------------------|
 | [Admin_asyncEnabled](#Admin_asyncEnabled) | [admin.asyncEnabled](#Admin_asyncEnabled) |
 | [Admin_availableFunctions](#Admin_availableFunctions) | [admin.availableFunctions](#Admin_availableFunctions) |
+|  | [admin.availableFunctionsPaged](#paged-functions-section) |
 | [AdminLog_logMany](#AdminLog_logMany)     | [log.logMany](#AdminLog_logMany)          |
 | [AdminLog_subscribe](#AdminLog_subscribe) | [log.subscribe](#AdminLog_subscribe)      |
 | [AdminLog_subscriptions](#AdminLog_subscriptions) | [log.subscriptions](#AdminLog_subscriptions) |
@@ -85,6 +83,7 @@ admin.on(channel, pingResponse);
 | [Core_pid](#Core_pid)                     | [core.pid](#Core_pid)                     |
 | [InterfaceController_disconnectPeer](#InterfaceController_disconnectPeer) | [interfaceController.disconnectPeer](#InterfaceController_disconnectPeer) |
 | [InterfaceController_peerStats](#InterfaceController_peerStats) | [interfaceController.peerStats](#InterfaceController_peerStats) |
+|  | [interfaceController.peerStatsPaged](#paged-functions-section) |
 | [IpTunnel_allowConnection](#IpTunnel_allowConnection) | [ipTunnel.allowConnection](#IpTunnel_allowConnection) |
 | [IpTunnel_connectTo](#IpTunnel_connectTo) | [ipTunnel.connectTo](#IpTunnel_connectTo) |
 | [IpTunnel_listConnections](#IpTunnel_listConnections) | [ipTunnel.listConnections](#IpTunnel_listConnections) |
@@ -92,7 +91,7 @@ admin.on(channel, pingResponse);
 | [IpTunnel_showConnection](#IpTunnel_showConnection) | [ipTunnel.showConnection](#IpTunnel_showConnection) |
 | [Janitor_dumpRumorMill](#Janitor_dumpRumorMill) | [janitor.dumpRumorMill](#Janitor_dumpRumorMill) |
 | [memory](#memory)                         | [admin.memory](#memory)                   |
-| [NodeStore_dumpTable](#NodeStore_dumpTable) | [nodeStore.dumpTable](#NodeStore_dumpTable) |
+|  | [nodeStore.dumpTablePaged](#paged-functions-section) |
 | [NodeStore_getLink](#NodeStore_getLink)   | [nodeStore.getLink](#NodeStore_getLink)   |
 | [NodeStore_getRouteLabel](#NodeStore_getRouteLabel) | [nodeStore.getRouteLabel](#NodeStore_getRouteLabel) |
 | [NodeStore_nodeForAddr](#NodeStore_nodeForAddr) | [nodeStore.nodeForAddr](#NodeStore_nodeForAddr) |
@@ -113,6 +112,7 @@ admin.on(channel, pingResponse);
 | [Security_setupComplete](#Security_setupComplete) | [security.setupComplete](#Security_setupComplete) |
 | [Security_setUser](#Security_setUser)     | [security.setUser](#Security_setUser)     |
 | [SessionManager_getHandles](#SessionManager_getHandles) | [sessionManager.getHandles](#SessionManager_getHandles) |
+|  | [sessionManager.getHandlesPaged](#paged-functions-section) |
 | [SessionManager_sessionStats](#SessionManager_sessionStats) | [sessionManager.sessionStats](#SessionManager_sessionStats) |
 | [SwitchPinger_ping](#SwitchPinger_ping)   | [switchPinger.ping](#SwitchPinger_ping)   |
 | [UDPInterface_beginConnection](#UDPInterface_beginConnection) | [udpInterface.beginConnection](#UDPInterface_beginConnection) |
@@ -874,4 +874,58 @@ options = {
 
 channel = admin.udpInterface.new(options);
 admin.once(channel, processResponse);
+```
+
+---
+
+<a name="paged-functions-section"></a>
+## Paged Functions
+The paged functions will fetch all pages and return the result. Passing options
+is optional. The callback receives `err` and `results` as arguments and both
+are `Array` types.
+
+```js
+function pagedCallback(err, results) {
+    if (err) {
+        return console.log('paged callback error', err);
+    }
+    console.log('paged function results array', );
+}
+admin.availableFunctionsPaged(pagedCallback);
+admin.interfaceController.peerStatsPaged(pagedCallback);
+admin.nodeStore.dumpTablePaged(pagedCallback);
+admin.sessionManager.getHandlesPaged(pagedCallback);
+
+// mill property is optional
+admin.janitor.dumpRumorMillPaged({ mill: '' }, pagedCallback);
+```
+
+---
+
+<a name="development-section"></a>
+## Development
+Create environment variables that the tests will look for:
+```
+# cjdns development environment
+export CJDNS_ADMIN_PORT=11234
+export CJDNS_ADMIN_IP=127.0.0.1
+export CJDNS_ADMIN_PASSWORD=from your cjdroute config
+```
+
+Tools are available via npm scripts. See `package.json` in the `scripts` section.
+```
+npm run lint
+
+# test offline functionality
+npm test
+npm test -- --watch
+
+# test online, UDP, and potentially dangerous functions
+# on an actual node
+npm run test-live
+npm run test-live -- --watch
+
+# render docs to html for testing
+npm run doc-gen
+npm run doc-watch
 ```

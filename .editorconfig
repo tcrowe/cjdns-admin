@@ -7,11 +7,11 @@ end_of_line = lf
 insert_final_newline = true
 
 # js and json
-[{*.js,*.json}]
-indent_style = tab
+[*.js]
+indent_style = space
 indent_size = 4
 
 # package.json format is different
-[{package.json}]
+[*.json]
 indent_style = space
 indent_size = 2
