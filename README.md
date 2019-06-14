@@ -1,3 +1,4 @@
+⚠️ CJDNS is a good technology but most of the people around it are a bunch of intolerant and hostile Commie scum. If you want to take over this module and deal with those people please make and issue and we'll work it out. Thank you
 
 # cjdns-admin
 ---
